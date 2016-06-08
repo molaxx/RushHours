@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "rushhours.hpp"
 
-
-
 bool RushHours::IsRushHour(double t) 
 {
     map<double,IntervalSide>::iterator upperBoundIt;
+	// _rushIntervals maintains a set of non overlapping intervals
+	// thus if the closest point from the left is closing an interval
+	// the point is contained in it
     upperBoundIt = _rushIntervals.upper_bound(t);
     if (upperBoundIt != _rushIntervals.end() && upperBoundIt->second == IntervalSide::CLOSE)
         return true;
@@ -40,7 +41,7 @@ void RushHours::AddRushHour(double open, double close)
     
     // Union all intervals in the middle
     lowerBoundIt++;
-    // remove any points between the new interval
+    // remove any points inside the new interval
     if (lowerBoundIt != upperBoundIt)
     {
         _rushIntervals.erase(lowerBoundIt, upperBoundIt);

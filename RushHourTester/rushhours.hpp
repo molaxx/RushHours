@@ -3,18 +3,17 @@
 #include <map>
 using namespace std;
 
+enum IntervalSide { OPEN, CLOSE };
+typedef map<double, IntervalSide> IntervalsContainer;
+
 class RushHours 
 {
     public:
-		enum IntervalSide { OPEN, CLOSE };
-		typedef map<double, RushHours::IntervalSide> IntervalsContainer;
-
         void AddRushHour(double open, double close);
         bool IsRushHour(double t);
 
-		const IntervalsContainer& GetIntervals() {
-			return _rushIntervals;
-		}
+		// for testing 
+		const IntervalsContainer& GetRushIntervals() { return _rushIntervals; }
     private:
 		IntervalsContainer _rushIntervals;
 };
